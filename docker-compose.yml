@@ -1,0 +1,52 @@
+# NOTE - dev
+# paso 1 contruir: docker compose build
+# paso 2 levantar: docker compose up
+version: '3'
+
+services:
+
+  app:
+    build:
+      context: .
+      target: ${STAGE}
+      dockerfile: Dockerfile
+
+    volumes:
+    # enlaza para esta ubicación 'carpeta' con /app/ de la imagen
+      - .:/app/
+    # vol anonimo que mapea el host(q no es nada no existe) pero este directorio tiene la info del hostin o contenedor
+      - /app/node_modules
+
+    container_name: nest-app
+    ports:
+      - ${PORT}:${PORT}
+
+    environment:
+      APP_VERSION: ${APP_VERSION}
+      STAGE: ${STAGE}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      PORT: ${PORT}
+      HOST_API: ${HOST_API}
+      JWT_SECRET: ${JWT_SECRET}
+
+  db:
+    image: postgres:14.3
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    # Debe ser el mismo que DB_NAME del servicio anterior
+    container_name: ${DB_NAME}
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+
+volumes:
+  postgres-db:
+    external: false

@@ -1,8 +1,8 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Crear imágenes en base a proyectos existentes
 
-# Teslo API
+Utilizaremos este repo de teslo-shop para ver el paso a paso de como crear una imagen desde un proyecto ya existente
+
+## Teslo API
 
 1. Clonar proyecto
 2. ```yarn install```
@@ -20,12 +20,21 @@
 
     [local](http://localhost:3000/api/seed)
 
-# Comando para usar con Docker
+## Generar build de producción usando docker-compose diferente y levantar para probar
 
-    docker container run `
-    --name nest-app `
-    -w /app `
-    -p 80:3000 `
-    -v ${PWD}:/app `
-    node:16-alpine3.16 `
-    sh -c "yarn install && yarn start:dev"
+```bash
+    docker compose -f docker-compose.prod.yml build
+
+    # levantar el build de prod
+    docker compose -f docker-compose.prod.yml up
+```
+
+## Comando para usar con Docker
+
+docker container run `
+--name nest-app `
+-w /app `
+-p 80:3000 `
+-v ${PWD}:/app `
+node:16-alpine3.16 `
+sh -c "yarn install && yarn start:dev"

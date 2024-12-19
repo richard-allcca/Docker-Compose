@@ -1,26 +1,21 @@
-# NOTE - dev
-# paso 1 contruir: docker compose build
-# paso 2 levantar: docker compose up
 version: '3'
 
 services:
 
   app:
-    build:
-      context: .
-      target: ${STAGE}
-      dockerfile: Dockerfile
+
+    build: # se usa para construir una imagen a partir de un Dockerfile
+      context: . # directorio donde se encuentra el Dockerfile
+      dockerfile: Dockerfile # por defecto busca dockerfile pero con este parametro se puede especificar otro nombre
+      target: ${STAGE} # especifica el stage del Dockerfile que debe utilizar
 
     volumes:
-    # enlaza para esta ubicación 'carpeta' con /app/ de la imagen
-      - .:/app/
-    # vol anonimo que mapea el host(q no es nada no existe) pero este directorio tiene la info del hostin o contenedor
-      - /app/node_modules
+      - .:/app/ # monta todo el file system actual en el contenedor
+      - /app/node_modules # monta el directorio node_modules del contenedor en el file system actual
 
     container_name: nest-app
     ports:
       - ${PORT}:${PORT}
-
     environment:
       APP_VERSION: ${APP_VERSION}
       STAGE: ${STAGE}

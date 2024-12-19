@@ -1,6 +1,3 @@
-# NOTE - prod (apuntando a otro compose)
-# paso 1 contruir: docker compose -f docker-compose.prod.yml buil
-# paso 2 levantar: docker compose -f docker-compose.prod.yml up
 version: '3'
 
 services:
@@ -12,7 +9,7 @@ services:
       target: ${STAGE}
       dockerfile: Dockerfile
 
-    image: thouma/teslo-shop-prod:2.0.0
+    image: thouma/teslo-shop-prod:2.0.0 # Nombra la imagen que se creará
 
     container_name: nest-app
     ports:

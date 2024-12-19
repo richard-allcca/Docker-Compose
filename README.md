@@ -1,8 +1,9 @@
 # Crear imágenes en base a proyectos existentes
 
 Utilizaremos este repo de teslo-shop para ver el paso a paso de como crear una imagen desde un proyecto ya existente
+También hacemos un build para desarrollo o prod con docker-compose específicos
 
-## Teslo API
+## Levantar en local Teslo API
 
 1. Clonar proyecto
 2. ```yarn install```
@@ -20,7 +21,7 @@ Utilizaremos este repo de teslo-shop para ver el paso a paso de como crear una i
 
     [local](http://localhost:3000/api/seed)
 
-## Generar build de producción usando docker-compose diferente y levantar para probar
+## Generar build de producción usando docker-compose especifico y levantar para probar
 
 ```bash
     docker compose -f docker-compose.prod.yml build

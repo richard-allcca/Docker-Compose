@@ -6,7 +6,7 @@ services:
 
     build: # se usa para construir una imagen a partir de un Dockerfile
       context: . # directorio donde se encuentra el Dockerfile
-      dockerfile: Dockerfile # por defecto busca dockerfile pero con este parametro se puede especificar otro nombre
+      dockerfile: Dockerfile # por defecto busca dockerfile pero con este parámetro se puede especificar otro nombre
       target: ${STAGE} # especifica el stage del Dockerfile que debe utilizar
 
     volumes:
@@ -14,9 +14,11 @@ services:
       - /app/node_modules # monta el directorio node_modules del contenedor en el file system actual
 
     container_name: nest-app
+
     ports:
       - ${PORT}:${PORT}
-    environment:
+
+    environment: # variables de entorno del proyecto al contenedor
       APP_VERSION: ${APP_VERSION}
       STAGE: ${STAGE}
       DB_PASSWORD: ${DB_PASSWORD}
@@ -29,15 +31,19 @@ services:
       JWT_SECRET: ${JWT_SECRET}
 
   db:
+
     image: postgres:14.3
     restart: always
     ports:
       - "5432:5432"
+
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
+
     # Debe ser el mismo que DB_NAME del servicio anterior
     container_name: ${DB_NAME}
+
     volumes:
       - postgres-db:/var/lib/postgresql/data
 

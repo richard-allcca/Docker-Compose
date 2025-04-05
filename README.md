@@ -24,9 +24,10 @@ También hacemos un build para desarrollo o prod con docker-compose específicos
 ## Generar build de producción usando docker-compose especifico y levantar para probar
 
 ```bash
+    # Generar el build
     docker compose -f docker-compose.prod.yml build
 
-    # levantar el build de prod
+    # Levantar el build de prod
     docker compose -f docker-compose.prod.yml up
 ```
 

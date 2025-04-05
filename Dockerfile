@@ -11,7 +11,7 @@ CMD [ "yarn","start:dev" ]
 FROM node:19-alpine3.15 as dev-deps
 WORKDIR /app
 COPY package.json package.json
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile # instala todas las dependencias (dev y prod)
 
 
 FROM node:19-alpine3.15 as builder
@@ -20,12 +20,12 @@ COPY --from=dev-deps /app/node_modules ./node_modules
 # copia todo lo que no este ignorado en dockerignore
 COPY . .
 # RUN yarn test
-RUN yarn build # construye la aplicacion (carpeta dist)
+RUN yarn build # construye la aplicación (carpeta dist)
 
 FROM node:19-alpine3.15 as prod-deps
 WORKDIR /app
 COPY package.json package.json
-RUN yarn install --prod --frozen-lockfile # solo las dependencias de prod
+RUN yarn install --prod --frozen-lockfile # instala solo las dependencias de producción
 
 
 FROM node:19-alpine3.15 as prod

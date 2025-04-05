@@ -5,7 +5,7 @@ services:
   app:
     build:
       context: .
-      # cambia esto segun necesites en .env
+      # cambia esto según necesites en .env
       target: ${STAGE}
       dockerfile: Dockerfile
 
